@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "watch": "node js/bin/index.js --dir ./test/views --out ./test/outputs"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "pug": "^2.0.3"
+  }
+}
