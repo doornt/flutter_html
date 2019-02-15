@@ -48,6 +48,9 @@ class NodeModel{
           case "attrs":
             node.attrs = (value as List<dynamic>).map((dynamic json)=>AttrModel.fromJson(json as Map<String,dynamic>)).toList();
             break;
+          case "block":
+            node.block = BlockModel.fromJson(value);
+            break;
         }
       });
       return node;

@@ -5,9 +5,10 @@ import 'package:flutter_html_render/flutter_html_render.dart';
 import 'dart:io';
 
 void main() {
-  test('HtmlRender',() async {
+  test('HtmlRender',() {
     final file = new File('test/outputs/layout.pug.json');
-    HtmlRender html = HtmlRender(await file.readAsString());
+    HtmlRender html = HtmlRender( file.readAsStringSync());
+    html.toWidget();
   });
 
 }
