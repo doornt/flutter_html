@@ -1,4 +1,4 @@
-library flutter_html;
+library flutter_html_render;
 
 /// A Calculator.
 class Calculator {

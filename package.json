@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "watch": "node js/bin/index.js --dir ./test/views --out ./test/outputs"
+    "watch": "node js/bin/index.js --dir ./test/views --out ./test/outputs",
+    "pub:run":"flutter packages pub publish --dry-run",
+    "pub:publish":"flutter packages pub publish"
   },
   "dependencies": {
     "minimist": "^1.2.0",
