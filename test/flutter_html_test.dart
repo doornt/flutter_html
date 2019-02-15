@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-// import 'package:flutter_html_render/flutter_html_render.dart';
+import 'package:flutter_html_render/flutter_html_render.dart';
 
 import 'dart:io';
 
@@ -15,8 +15,7 @@ void main() {
 
   test('HtmlRender',() async {
     final file = new File('test/outputs/layout.pug.json');
-    print(file.readAsStringSync());
-    // HtmlRender html = HtmlRender(await file.readAsString());
+    HtmlRender html = HtmlRender(await file.readAsString());
   });
 
 }

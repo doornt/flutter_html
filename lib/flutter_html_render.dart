@@ -13,6 +13,7 @@ class Calculator {
 class HtmlRender{
   HtmlRender(String jsonStr){
     Map nodeMap = jsonDecode(jsonStr);
-    // BlockModel block = BlockModel.fromJson(nodeMap);
+    BlockModel block = BlockModel.fromJson(nodeMap);
+    print(block);
   }
 }
