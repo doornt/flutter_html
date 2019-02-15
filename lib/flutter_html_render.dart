@@ -8,13 +8,37 @@ class HtmlRender{
 
   BlockModel _block;
 
+  Widget _root;
+
   HtmlRender(String jsonStr){
     Map nodeMap = jsonDecode(jsonStr);
     this._block = BlockModel.fromJson(nodeMap);
   }
 
+
+  _visitTag(NodeModel node){
+
+    Widget _widget;
+
+    switch(node.name){
+      case "Column":
+      _widget = Column();
+    }
+  }
+
+  _visit(NodeModel node){
+    switch(node.type){
+      case "Tag":
+        _visitTag(node);
+        break;
+    }
+  }
+
+
   Widget _parseWidget(NodeModel node){
-    return Container();
+      _root = null;
+      _visit(node);
+      return _root;
   }
 
   Widget toWidget(){
