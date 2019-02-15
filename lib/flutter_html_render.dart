@@ -3,7 +3,7 @@ library flutter_html_render;
 import 'dart:convert';
 import 'ast_model.dart';
 import 'package:flutter/material.dart';
-import 'dart:collection';
+import 'elements/Flex.dart';
 
 class HtmlRender{
 
@@ -35,8 +35,12 @@ class HtmlRender{
 
     switch(node.name){
       case "Column":
-        _widget = Column(children: list);
+        _widget = FlexElement.buildColumn(list,node.attrs);
         break;
+      case "Row":
+        _widget = FlexElement.buildRow(list,node.attrs);
+        break;
+
       case "Container":
         if(list.length > 0){
           _widget = Container(child: list[0],);
@@ -44,9 +48,7 @@ class HtmlRender{
           _widget = Container();
         }
         break;
-      case "Row":
-        _widget = Row(children: list);
-        break;
+      
     }
 
     return _widget;
