@@ -2,18 +2,30 @@ library flutter_html_render;
 
 import 'dart:convert';
 import 'ast_model.dart';
-
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
-
+import 'package:flutter/material.dart';
 
 class HtmlRender{
+
+  BlockModel _block;
+
   HtmlRender(String jsonStr){
     Map nodeMap = jsonDecode(jsonStr);
-    BlockModel block = BlockModel.fromJson(nodeMap);
-    print(block);
+    this._block = BlockModel.fromJson(nodeMap);
+  }
+
+  Widget _parseWidget(NodeModel node){
+    return Container();
+  }
+
+  Widget toWidget(){
+    if(this._block.nodes.length == 0){
+      return Container();
+    }
+    
+    NodeModel node = this._block.nodes[0];
+
+    return this._parseWidget(node);
+
+
   }
 }

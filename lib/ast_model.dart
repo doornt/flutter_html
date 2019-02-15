@@ -11,6 +11,18 @@ class AttrModel{
 
   factory AttrModel.fromJson(Map<String,dynamic> json){
     AttrModel attr = new AttrModel();
+    
+    json.forEach((String key,dynamic value){
+        switch(key){
+          case "val":
+            attr.val = value as String;
+            break;
+          case "name":
+            attr.name = value as String;
+          break;
+        }
+      });
+
     return attr;
   }
 }
