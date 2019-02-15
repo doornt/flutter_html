@@ -21,7 +21,7 @@ const genFiles = ()=>{
         if(!err){
             files.map(name=>{
                 fs.readFile(path.join(dir,name),'utf-8',(err,data)=>{
-                    let codeStr = JSON.stringify(compile(data).nodes)
+                    let codeStr = JSON.stringify(compile(data))
                     return fs.writeFileSync(path.join(outDir,name + ".json"),codeStr)
                 })
             })
