@@ -3,12 +3,15 @@ library flutter_html_render;
 import 'dart:convert';
 import 'ast_model.dart';
 import 'package:flutter/material.dart';
+import 'dart:collection';
 
 class HtmlRender{
 
   BlockModel _block;
 
   Widget _root;
+
+  Queue<NodeModel> _queue = new Queue();
 
   HtmlRender(String jsonStr){
     Map nodeMap = jsonDecode(jsonStr);
@@ -36,8 +39,17 @@ class HtmlRender{
 
 
   Widget _parseWidget(NodeModel node){
-      _root = null;
-      _visit(node);
+      NodeModel pNode;
+      _queue.addLast(node);
+      while(_queue.length > 0){
+        pNode = _queue.removeLast();
+        _visit(pNode);
+        if(pNode.block != null && pNode.block.nodes.length > 0){
+          pNode.block.nodes.forEach((NodeModel n){
+            _queue.addLast(n);
+          });
+        }
+      }
       return _root;
   }
 
