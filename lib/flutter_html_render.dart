@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'ast_model.dart';
 import 'package:flutter/material.dart';
 import 'elements/Flex.dart';
+import 'elements/Text.dart';
 
 class HtmlRender{
 
@@ -43,7 +44,7 @@ class HtmlRender{
         _widget = FlexElement.buildRow(list,node.attrs,this._params);
         break;
       case "Text":
-        _widget = FlexElement.buildText(list, node.attrs,this._params);
+        _widget = TextElement.buildText(list, node.attrs,this._params);
         break;
       case "Container":
         if(list.length > 0){
