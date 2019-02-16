@@ -2,43 +2,13 @@ import 'package:flutter/material.dart';
 import '../ast_model.dart';
 import 'dart:convert';
 import 'dart:math';
+import 'utils.dart';
 
-class AttrProperty{
 
-  bool isCode = false;
-
-  dynamic value;
-
-  AttrProperty(this.isCode,this.value);
-
-}
-
-bool isNumeric(String s) {
-  if(s == null) {
-    return false;
-  }
-  return double.parse(s) != null;
-}
 
 class FlexElement{
 
-  static Map<String,AttrProperty> attrArrayToMap(List<AttrModel> attrs,Map<String ,dynamic> params){
-    Map<String,AttrProperty> map = {};
-    attrs.forEach((AttrModel attr){
-      if(attr.val.length > 1 && attr.val[0] == "\"" &&  attr.val[attr.val.length - 1] == "\""){
-        map[attr.name] = AttrProperty(false, attr.val.substring(1,attr.val.length -1));
-      }else if(params[attr.val] != null){
-        if(isNumeric(params[attr.val])){
-          map[attr.name] = AttrProperty(true, double.parse(attr.val));
-        }else{
-          map[attr.name] = AttrProperty(true, params[attr.val]);
-        }
-      }else{
-        map[attr.name] = AttrProperty(false, attr.val);
-      }
-    });
-    return map;
-  }
+  
 
   static VerticalDirection _checkVerticalDirection(AttrProperty prop){
     if(prop.isCode){
@@ -56,7 +26,7 @@ class FlexElement{
   }
 
   static buildColumn(List<Widget> list,List<AttrModel> attrs,Map<String ,dynamic> params){
-    var attrMap = attrArrayToMap(attrs,params);
+    var attrMap = Utils.attrArrayToMap(attrs,params);
     var col = new Column(children: list,
       verticalDirection: _checkVerticalDirection(attrMap["verticalDirection"]),
       
@@ -74,7 +44,7 @@ class FlexElement{
   // Text
   static buildText(List<Widget> list,List<AttrModel> attrs,Map<String ,dynamic> params) {
 
-    var attrMap = attrArrayToMap(attrs,params);
+    var attrMap = Utils.attrArrayToMap(attrs,params);
 
     assert(attrMap["text"] != null);
     
