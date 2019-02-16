@@ -5,6 +5,7 @@ import 'ast_model.dart';
 import 'package:flutter/material.dart';
 import 'elements/Flex.dart';
 import 'elements/Text.dart';
+import 'elements/Divider.dart';
 
 class HtmlRender{
 
@@ -47,6 +48,9 @@ class HtmlRender{
         break;
       case "Text":
         _widget = TextElement.buildText(list, node.attrs,params);
+        break;
+      case "Divider":
+        _widget = DividerElement.buildDivider(list, node.attrs,params);
         break;
       case "Container":
         if(list.length > 0){
