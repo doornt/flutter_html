@@ -8,7 +8,13 @@ void main() {
   test('HtmlRender',() {
     final file = new File('test/outputs/layout.pug.json');
     HtmlRender html = HtmlRender( file.readAsStringSync());
-    html.toWidget({});
+
+    Map<String,dynamic> params = {};
+
+    params["list"] = [{"text":"fsadfasdf"},{"text":"111"}];
+    
+
+    html.toWidget(params);
   });
 
 }

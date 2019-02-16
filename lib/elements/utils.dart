@@ -10,13 +10,33 @@ class AttrProperty{
 
 }
 
+double toDouble(dynamic data){
+  if(data is String){
+    return 0;
+  }
+  if(data is int){
+    return data.toDouble();
+  }
+  if(data is double){
+    return data;
+  }
+  return 0;
+}
 
+
+int doubleToInt(double num){
+
+  if(num is double){
+    return num.toInt();
+  }
+  return 0;
+}
 
 bool isNumeric(String s) {
   if(s == null) {
     return false;
   }
-  return double.parse(s) != null;
+  return double.tryParse(s) != null;
 }
 
 class Utils{
