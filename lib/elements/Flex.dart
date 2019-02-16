@@ -3,18 +3,37 @@ import '../ast_model.dart';
 import 'dart:convert';
 import 'dart:math';
 
+class AttrProperty{
+
+  bool isCode = false;
+
+  dynamic value;
+
+  AttrProperty(this.isCode,this.value);
+
+}
+
 class FlexElement{
 
-  static Map<String,String> attrArrayToMap(List<AttrModel> attrs){
-    Map<String,String> map = {};
+  static Map<String,AttrProperty> attrArrayToMap(List<AttrModel> attrs,Map<String ,dynamic> params){
+    Map<String,AttrProperty> map = {};
     attrs.forEach((AttrModel attr){
-      map[attr.name] = attr.val;
+      if(attr.val.startsWith("\"")){
+        map[attr.name] = AttrProperty(false, attr.val.replaceAll("\"", ""));
+      }else if(params[attr.val] != null){
+        map[attr.name] = AttrProperty(true, params[attr.val]);
+      }else{
+        map[attr.name] = AttrProperty(false, attr.val);
+      }
     });
     return map;
   }
 
-  static VerticalDirection _checkVerticalDirection(String val){
-    switch(val){
+  static VerticalDirection _checkVerticalDirection(AttrProperty prop){
+    if(prop.isCode){
+      return prop.value;
+    }
+    switch(prop.value){
       case "dow":{
         return VerticalDirection.down;
       }
@@ -25,8 +44,8 @@ class FlexElement{
     return VerticalDirection.down;
   }
 
-  static buildColumn(List<Widget> list,List<AttrModel> attrs){
-    var attrMap = attrArrayToMap(attrs);
+  static buildColumn(List<Widget> list,List<AttrModel> attrs,Map<String ,dynamic> params){
+    var attrMap = attrArrayToMap(attrs,params);
     var col = new Column(children: list,
       verticalDirection: _checkVerticalDirection(attrMap["verticalDirection"]),
       
@@ -36,23 +55,23 @@ class FlexElement{
     // col.direction
   }
 
-  static buildRow(List<Widget> list,List<AttrModel> attrs){
+  static buildRow(List<Widget> list,List<AttrModel> attrs,Map<String ,dynamic> params){
     var col = new Row(children: list);
     return col;
   }
 
   // Text
-  static buildText(List<Widget> list,List<AttrModel> attrs) {
+  static buildText(List<Widget> list,List<AttrModel> attrs,Map<String ,dynamic> params) {
 
-    var attrMap = attrArrayToMap(attrs);
+    var attrMap = attrArrayToMap(attrs,params);
 
     assert(attrMap["text"] != null);
     
     TextStyle style;
     if (attrMap["style"] != null) {
-      style =_parseStyle(attrMap["style"]);
+      style =_parseStyle(attrMap["style"].value as String);
     }
-    var text = new Text(attrMap["text"], 
+    var text = new Text(attrMap["text"].value, 
                         textAlign: _textAlignMap[attrMap["textAlign"]],
                         overflow: _overflowMap[attrMap["overflow"]],
                         style: style);

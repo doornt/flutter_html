@@ -8,7 +8,7 @@ void main() {
   test('HtmlRender',() {
     final file = new File('test/outputs/layout.pug.json');
     HtmlRender html = HtmlRender( file.readAsStringSync());
-    html.toWidget();
+    html.toWidget({});
   });
 
 }

@@ -11,6 +11,8 @@ class HtmlRender{
 
   Widget _root;
 
+  Map<String ,dynamic> _params;
+
   // Queue<NodeModel> _queue = new Queue();
 
   HtmlRender(String jsonStr){
@@ -35,13 +37,13 @@ class HtmlRender{
 
     switch(node.name){
       case "Column":
-        _widget = FlexElement.buildColumn(list,node.attrs);
+        _widget = FlexElement.buildColumn(list,node.attrs,this._params);
         break;
       case "Row":
-        _widget = FlexElement.buildRow(list,node.attrs);
+        _widget = FlexElement.buildRow(list,node.attrs,this._params);
         break;
       case "Text":
-        _widget = FlexElement.buildText(list, node.attrs);
+        _widget = FlexElement.buildText(list, node.attrs,this._params);
         break;
       case "Container":
         if(list.length > 0){
@@ -56,11 +58,19 @@ class HtmlRender{
     return _widget;
   }
 
+
+  _visitCode(NodeModel node){
+
+  }
+
   Widget _visit(NodeModel node){
     Widget _widget;
     switch(node.type){
       case "Tag":
         _widget = _visitTag(node);
+        break;
+      case "Code":
+        _widget = _visitCode(node);
         break;
     }
     return _widget;
@@ -83,12 +93,14 @@ class HtmlRender{
       return _root;
   }
 
-  Widget toWidget(){
+  Widget toWidget(Map<String ,dynamic> params){
     if(this._block.nodes.length == 0){
       return Container();
     }
     
     NodeModel node = this._block.nodes[0];
+
+    this._params = params;
 
     return this._parseWidget(node);
 
