@@ -42,10 +42,16 @@ class NodeModel{
     json.forEach((String key,dynamic value){
         switch(key){
           case "type":
+            node.type = value as String;
+          break;
           case "name":
+              node.name = value as String;
+          break;
           case "obj":
+              node.obj = value as String;
+          break;
           case "val":
-            node.obj = value as String;
+            node.val = value as String;
           break;
           case "attrs":
             node.attrs = (value as List<dynamic>).map((dynamic json)=>AttrModel.fromJson(json as Map<String,dynamic>)).toList();
