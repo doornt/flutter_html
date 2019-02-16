@@ -33,18 +33,24 @@ class Utils{
           return;
         }
       }
-      
+
       if(attr.val.length > 1 && attr.val[0] == "\"" &&  attr.val[attr.val.length - 1] == "\""){
         map[attr.name] = AttrProperty(false, attr.val.substring(1,attr.val.length -1));
-      }else if(params[attr.val] != null){
-        if(isNumeric(params[attr.val])){
-          map[attr.name] = AttrProperty(true, double.parse(attr.val));
-        }else{
-          map[attr.name] = AttrProperty(true, params[attr.val]);
-        }
-      }else{
-        map[attr.name] = AttrProperty(false, attr.val);
+        return ;
       }
+
+      if(isNumeric(attr.val)){
+          map[attr.name] = AttrProperty(true, double.parse(attr.val));
+          return;
+      }
+      
+      if(params[attr.val] != null){
+        map[attr.name] = AttrProperty(true, params[attr.val]);
+        return ;
+      }
+      
+      map[attr.name] = AttrProperty(false, attr.val);
+      
     });
     return map;
   } 
