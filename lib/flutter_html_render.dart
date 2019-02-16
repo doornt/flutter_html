@@ -5,6 +5,7 @@ import 'ast_model.dart';
 import 'package:flutter/material.dart';
 import 'elements/Flex.dart';
 import 'elements/Text.dart';
+import 'elements/ListView.dart';
 import 'elements/Divider.dart';
 import 'elements/Image.dart';
 
@@ -31,6 +32,11 @@ class HtmlRender{
     List<Widget> list = [];
     if(node.block != null && node.block.nodes.length > 0){
       node.block.nodes.forEach((NodeModel n){
+        if(n.type == "Each"){
+          var eachList = _visitEach(n);
+          list.addAll(eachList??[]);
+          return;
+        }
         var res = _visit(n);
         if(n != null){
           list.add(res);
@@ -50,6 +56,9 @@ class HtmlRender{
       case "Text":
         _widget = TextElement.buildText(list, node.attrs,params);
         break;
+      case "ListView":
+        _widget = ListElement.build(list, node.attrs,params);
+      break;
       case "Divider":
         _widget = DividerElement.buildDivider(list, node.attrs,params);
         break;
@@ -108,9 +117,9 @@ class HtmlRender{
       case "Code":
         _widget = _visitCode(node);
         break;
-      case "Each":
-        _widget = _visitEach(node);
-        break;
+      // case "Each":
+      //   _widget = _visitEach(node);
+      //   break;
     }
     return _widget;
   }
