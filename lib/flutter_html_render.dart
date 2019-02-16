@@ -40,7 +40,9 @@ class HtmlRender{
       case "Row":
         _widget = FlexElement.buildRow(list,node.attrs);
         break;
-
+      case "Text":
+        _widget = FlexElement.buildText(list, node.attrs);
+        break;
       case "Container":
         if(list.length > 0){
           _widget = Container(child: list[0],);
