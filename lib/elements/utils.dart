@@ -22,7 +22,18 @@ bool isNumeric(String s) {
 class Utils{
   static Map<String,AttrProperty> attrArrayToMap(List<AttrModel> attrs,Map<String ,dynamic> params){
     Map<String,AttrProperty> map = {};
+
+    params = params == null?{}:params;
+
     attrs.forEach((AttrModel attr){
+      if(params["__key"] is String && attr.val.startsWith(params["__key"])){
+        String codeVal = attr.val.replaceFirst(params["__key"], "");
+        if(params[codeVal] != null){
+          map[attr.name] = AttrProperty(true, params[codeVal]);
+          return;
+        }
+      }
+      
       if(attr.val.length > 1 && attr.val[0] == "\"" &&  attr.val[attr.val.length - 1] == "\""){
         map[attr.name] = AttrProperty(false, attr.val.substring(1,attr.val.length -1));
       }else if(params[attr.val] != null){
