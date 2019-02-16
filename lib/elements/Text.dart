@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../ast_model.dart';
 import 'dart:convert';
-import 'dart:math';
 import 'utils.dart';
 
 class TextElement{
@@ -28,7 +27,7 @@ class TextElement{
     Map styleMap = json.decode(style);
 
     // color
-    Color color = _parseColor(styleMap["color"]);
+    Color color = Utils.parseColor(styleMap["color"]);
 
     // fontSize
     double fontSize;
@@ -69,13 +68,6 @@ class TextElement{
     };
 
     return fontWeightMap[fontWeight];
-  }
-
-  // color should be #AARRGGBB;
-  static _parseColor(String colorString) {
-    var colorInt = int.parse(colorString.substring(1, min(9, colorString.length)), radix: 16);
-    assert(colorInt is int);
-    return Color(colorInt);
   }
 
   static final _overflowMap = {

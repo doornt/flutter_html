@@ -1,4 +1,6 @@
 import '../ast_model.dart';
+import 'dart:math';
+import 'package:flutter/material.dart';
 
 class AttrProperty{
 
@@ -73,5 +75,13 @@ class Utils{
       
     });
     return map;
-  } 
+  }
+
+
+  // color should be #AARRGGBB;
+  static parseColor(String colorString) {
+    var colorInt = int.parse(colorString.substring(1, min(9, colorString.length)), radix: 16);
+    assert(colorInt is int);
+    return Color(colorInt);
+  }
 }
