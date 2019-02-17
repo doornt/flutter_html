@@ -45,7 +45,7 @@ class Utils{
   static Map<String,AttrProperty> attrArrayToMap(List<AttrModel> attrs,Map<String ,dynamic> params){
     Map<String,AttrProperty> map = {};
 
-    params = params == null?{}:params;
+    params = params ?? {};
 
     attrs.forEach((AttrModel attr){
       if(params["__key"] is String && attr.val.startsWith(params["__key"])){

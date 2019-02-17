@@ -7,6 +7,7 @@ import 'elements/Flex.dart';
 import 'elements/Text.dart';
 import 'elements/ListView.dart';
 import 'elements/Divider.dart';
+import 'elements/GestureDetector.dart';
 
 class HtmlRender{
 
@@ -14,7 +15,7 @@ class HtmlRender{
 
   Widget _root;
 
-  Map<String ,dynamic> _params;
+  // Map<String ,dynamic> _params;
 
   // Queue<NodeModel> _queue = new Queue();
 
@@ -24,7 +25,7 @@ class HtmlRender{
   }
 
 
-  _visitTag(NodeModel node,{Map<String ,dynamic> envParams}){
+  _visitTag(NodeModel node,Map<String ,dynamic> envParams){
 
     Widget _widget;
 
@@ -32,18 +33,18 @@ class HtmlRender{
     if(node.block != null && node.block.nodes.length > 0){
       node.block.nodes.forEach((NodeModel n){
         if(n.type == "Each"){
-          var eachList = _visitEach(n);
+          var eachList = _visitEach(n,envParams);
           list.addAll(eachList??[]);
           return;
         }
-        var res = _visit(n);
+        var res = _visit(n,envParams);
         if(n != null){
           list.add(res);
         }
       });
     }
 
-    var params =envParams!=null?envParams:this._params;
+    var params = envParams ?? {};
 
     switch(node.name){
       case "Column":
@@ -61,6 +62,9 @@ class HtmlRender{
       case "Divider":
         _widget = DividerElement.buildDivider(list, node.attrs,params);
         break;
+      case "GestureDetector":
+        _widget = GestureElement.buildDetector(list, node.attrs, params);
+      break;
       case "Container":
         if(list.length > 0){
           _widget = Container(child: list[0],);
@@ -75,28 +79,29 @@ class HtmlRender{
   }
 
 
-  _visitCode(NodeModel node){
+  _visitCode(NodeModel node,Map<String ,dynamic> envParams){
     throw "暂不支持";
   }
 
-  _visitEach(NodeModel node){
+  _visitEach(NodeModel node,Map<String ,dynamic> envParams){
     List<Widget> widget= [];
 
-    var values = this._params[node.obj];
+    var values = envParams[node.obj];
 
     if(values != null && values is List){
       values.forEach((dynamic value){
          if(node.block != null && node.block.nodes.length > 0 && value is Map){
-          node.block.nodes.forEach((NodeModel n){
-            if(n.type == "Tag"){
-              value["__key"] = node.val + ".";
-              var res = _visitTag(n,envParams: value);
-              if(n != null){
-                widget.add(res);
-              }
-            }
-            
-          });
+           for(var i=0;i<node.block.nodes.length;i++){
+             var n = node.block.nodes[i];
+             if(n.type == "Tag"){
+                value["__key"] = node.val + ".";
+                value["__index"] = i.toString();
+                var res = _visitTag(n,value);
+                if(n != null){
+                  widget.add(res);
+                }
+             }
+           }
         }
       });
     }
@@ -104,14 +109,14 @@ class HtmlRender{
     return widget;
   }
 
-  Widget _visit(NodeModel node){
+  Widget _visit(NodeModel node,Map<String ,dynamic> params){
     Widget _widget;
     switch(node.type){
       case "Tag":
-        _widget = _visitTag(node);
+        _widget = _visitTag(node,params);
         break;
       case "Code":
-        _widget = _visitCode(node);
+        _widget = _visitCode(node,params);
         break;
       // case "Each":
       //   _widget = _visitEach(node);
@@ -121,19 +126,8 @@ class HtmlRender{
   }
 
 
-  Widget _parseWidget(NodeModel node){
-      // NodeModel pNode;
-      // _queue.addLast(node);
-      // while(_queue.length > 0){
-      //   pNode = _queue.removeLast();
-      //   _visit(pNode);
-      //   if(pNode.block != null && pNode.block.nodes.length > 0){
-      //     pNode.block.nodes.forEach((NodeModel n){
-      //       _queue.addLast(n);
-      //     });
-      //   }
-      // }
-      _root = _visit(node);
+  Widget _parseWidget(NodeModel node,Map<String ,dynamic> params){
+      _root = _visit(node,params);
       return _root;
   }
 
@@ -144,9 +138,9 @@ class HtmlRender{
     
     NodeModel node = this._block.nodes[0];
 
-    this._params = params;
+    // this._params = params;
 
-    return this._parseWidget(node);
+    return this._parseWidget(node,params);
 
 
   }

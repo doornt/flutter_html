@@ -1,5 +1,6 @@
 
 ListView(padding=[1,2,3,4])
     each item in list
-        Text(text=item.text)
+        GestureDetector(onTap="listItemClick")
+            Text(text=item.text)
 Divider(height=1, color="#ffff0000")
