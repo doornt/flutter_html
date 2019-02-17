@@ -8,6 +8,7 @@ import 'elements/Text.dart';
 import 'elements/ListView.dart';
 import 'elements/Divider.dart';
 import 'elements/GestureDetector.dart';
+import 'elements/Image.dart';
 
 class HtmlRender{
 
@@ -65,6 +66,9 @@ class HtmlRender{
       case "GestureDetector":
         _widget = GestureElement.buildDetector(list, node.attrs, params);
       break;
+      case "Image_asset":
+        _widget = ImageElement.buildImageAsset(list, node.attrs,params);
+        break;
       case "Container":
         if(list.length > 0){
           _widget = Container(child: list[0],);

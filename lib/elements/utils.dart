@@ -84,4 +84,18 @@ class Utils{
     assert(colorInt is int);
     return Color(colorInt);
   }
+
+  static parseBoxFit(String boxFitString) {
+    final boxFitMap = {
+      "fill": BoxFit.fill,
+      "contain": BoxFit.contain,
+      "cover":BoxFit.cover,
+      "fitWidth":BoxFit.fitWidth,
+      "fitHeight":BoxFit.fitHeight,
+      "none":BoxFit.none,
+      "scaleDown":BoxFit.scaleDown
+    };
+
+    return boxFitMap[boxFitString];
+  }
 }
