@@ -19,11 +19,13 @@ class ImageElement{
 
     double width, height;
     if (attrMap["width"] != null) {
-      width = Utils.dynamic2double(attrMap["width"].value);
+      assert(attrMap["width"].isCode);
+      width = attrMap["width"].value;
     }
 
     if (attrMap["height"] != null) {
-      height = Utils.dynamic2double(attrMap["height"].value);
+      assert(attrMap["height"].isCode);
+      height = attrMap["height"].value;
     }
 
     Image image = Image.asset(attrMap["src"].value,

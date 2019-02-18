@@ -10,11 +10,7 @@ class DividerElement{
 
     double height;
     if (attrMap["height"] != null) {
-      if (!(attrMap["height"].value is double)) {
-        height = double.parse(attrMap["height"].value);
-      } else {
-        height = attrMap["height"].value;
-      }
+      height = attrMap["height"].value;
     }
     
 
@@ -22,11 +18,7 @@ class DividerElement{
 
     double indent;
     if (attrMap["indent"] != null) {
-      if (!(attrMap["indent"].value is double)) {
-        indent = double.parse(attrMap["indent"].value);
-      } else {
-        indent = attrMap["indent"].value;
-      }    
+      indent = attrMap["indent"].value; 
     }
     
     indent = indent ?? 0.0;
