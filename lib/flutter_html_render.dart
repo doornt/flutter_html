@@ -3,12 +3,12 @@ library flutter_html_render;
 import 'dart:convert';
 import 'ast_model.dart';
 import 'package:flutter/material.dart';
-import './elements/flex.dart';
-import './elements/text.dart';
+import './elements/flex_element.dart';
+import './elements/text_element.dart';
 import './elements/list_view.dart';
-import './elements/divider.dart';
+import './elements/divider_element.dart';
 import './elements/gesture_detector.dart';
-import './elements/image.dart';
+import './elements/image_element.dart';
 
 class HtmlRender {
   BlockModel _block;

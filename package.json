@@ -1,4 +1,7 @@
 {
+  "name": "flutter-render",
+  "version": "0.1.0",
+  "bin": "js/bin/index.js",
   "scripts": {
     "watch": "node js/bin/index.js --dir ./test/views --out ./test/outputs",
     "pub:run":"flutter packages pub publish --dry-run",
