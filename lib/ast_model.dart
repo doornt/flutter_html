@@ -2,32 +2,31 @@
 
 // part 'BlockModel.g.dart';
 
-
-class AttrModel{
+class AttrModel {
   String name;
   String val;
 
   AttrModel();
 
-  factory AttrModel.fromJson(Map<String,dynamic> json){
+  factory AttrModel.fromJson(Map<String, dynamic> json) {
     AttrModel attr = new AttrModel();
-    
-    json.forEach((String key,dynamic value){
-        switch(key){
-          case "val":
-            attr.val = value as String;
-            break;
-          case "name":
-            attr.name = value as String;
+
+    json.forEach((String key, dynamic value) {
+      switch (key) {
+        case "val":
+          attr.val = value as String;
           break;
-        }
-      });
+        case "name":
+          attr.name = value as String;
+          break;
+      }
+    });
 
     return attr;
   }
 }
 
-class NodeModel{
+class NodeModel {
   String type;
   String name;
   String obj;
@@ -37,54 +36,59 @@ class NodeModel{
 
   NodeModel();
 
-  factory NodeModel.fromJson(Map<String,dynamic> json){
+  factory NodeModel.fromJson(Map<String, dynamic> json) {
     NodeModel node = new NodeModel();
-    json.forEach((String key,dynamic value){
-        switch(key){
-          case "type":
-            node.type = value as String;
+    json.forEach((String key, dynamic value) {
+      switch (key) {
+        case "type":
+          node.type = value as String;
           break;
-          case "name":
-              node.name = value as String;
+        case "name":
+          node.name = value as String;
           break;
-          case "obj":
-              node.obj = value as String;
+        case "obj":
+          node.obj = value as String;
           break;
-          case "val":
-            node.val = value as String;
+        case "val":
+          node.val = value as String;
           break;
-          case "attrs":
-            node.attrs = (value as List<dynamic>).map((dynamic json)=>AttrModel.fromJson(json as Map<String,dynamic>)).toList();
-            break;
-          case "block":
-            node.block = BlockModel.fromJson(value);
-            break;
-        }
-      });
-      return node;
+        case "attrs":
+          node.attrs = (value as List<dynamic>)
+              .map((dynamic json) =>
+                  AttrModel.fromJson(json as Map<String, dynamic>))
+              .toList();
+          break;
+        case "block":
+          node.block = BlockModel.fromJson(value);
+          break;
+      }
+    });
+    return node;
   }
 }
 
-class BlockModel{
-    String type;
-    List<NodeModel> nodes;
+class BlockModel {
+  String type;
+  List<NodeModel> nodes;
 
-    BlockModel();
+  BlockModel();
 
-    factory BlockModel.fromJson(Map<String,dynamic> json){
+  factory BlockModel.fromJson(Map<String, dynamic> json) {
+    BlockModel block = new BlockModel();
 
-      BlockModel block = new BlockModel();
-
-      json.forEach((String key,dynamic value){
-        switch(key){
-          case "type":
-            block.type = value as String;
-            break;
-          case "nodes":
-            block.nodes = (value as List<dynamic>).map((dynamic json)=>NodeModel.fromJson(json as Map<String,dynamic>)).toList();
-            break;
-        }
-      });
-      return block;
-    }
+    json.forEach((String key, dynamic value) {
+      switch (key) {
+        case "type":
+          block.type = value as String;
+          break;
+        case "nodes":
+          block.nodes = (value as List<dynamic>)
+              .map((dynamic json) =>
+                  NodeModel.fromJson(json as Map<String, dynamic>))
+              .toList();
+          break;
+      }
+    });
+    return block;
+  }
 }
