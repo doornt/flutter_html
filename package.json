@@ -1,6 +1,6 @@
 {
   "name": "flutter-render",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "bin": "js/bin/index.js",
   "scripts": {
     "watch": "node js/bin/index.js --dir ./test/views --out ./test/outputs",
