@@ -1,6 +1,6 @@
 # flutter_html
 
-A new Flutter package project.
+A Flutter package for rendering html pug template file as Flutter widgets.
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ To use this plugin, add `flutter-html-render` as a dependency in your pubspec.ya
 
 3. create views folder in assets
 
-4. open terminal and excute cmd `flutter-render --dir views --out assets/out`
+4. open terminal and excute cmd `flutter-render --dir views --out assets/views`
 
 5. add output views folder in pubspec.yaml
 
