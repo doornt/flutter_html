@@ -64,7 +64,7 @@ To use this plugin, add `flutter-html-render` as a dependency in your pubspec.ya
         title: Text(widget.title),
       ),
       body: Center(
-        child: render?.toWidget({list:[{"text":"1",{"text":"2"}}]})
+        child: render?.toWidget({"list":[{"text":"1"},{"text":"2"}]})
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _hotReload,
