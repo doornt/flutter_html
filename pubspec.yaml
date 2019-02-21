@@ -1,6 +1,6 @@
 name: flutter_html_render
 description: A Flutter package for rendering html pug template file as Flutter widgets.
-version: 0.1.5
+version: 0.1.6
 author: com.doornt <postmaster@doornt.com>
 homepage: https://github.com/doornt/flutter_html
 
@@ -22,8 +22,8 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  assets:
-   - test/outputs/
+  # assets:
+  #  - test/outputs/
   #  - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see
