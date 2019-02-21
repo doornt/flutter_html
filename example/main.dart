@@ -37,26 +37,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadAsset().then((fileStr){
-      render = HtmlRender(fileStr);
+      setState(() {
+        render = HtmlRender(fileStr);
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: render?.toWidget({})
+      body: Center(
+        child: render?.toWidget({}),
+      )
     );
   }
 }

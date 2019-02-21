@@ -23,18 +23,37 @@ To use this plugin, add `flutter-html-render` as a dependency in your pubspec.ya
 ## Example
 
 ```
+  Column
+    Text(text="Hello World")
+    ListView(padding=[1,2,3,4])
+      each item in list
+            Text(text=item.text)
+
+```
+
+```
 
   HtmlRender render;
 
   Future<String> loadAsset() async {
-    return await rootBundle.loadString('assets/views/xxx.json');
+    return await rootBundle.loadString('assets/views/main.pug.json');
+  }
+
+  _hotReload(){
+    loadAsset().then((fileStr){
+      setState(() {
+        render = HtmlRender(fileStr);
+      });
+    });
   }
 
   @override
   void initState() {
     super.initState();
     loadAsset().then((fileStr){
-      render = HtmlRender(fileStr);
+      setState(() {
+        render = HtmlRender(fileStr);
+      });
     });
   }
 
@@ -44,8 +63,54 @@ To use this plugin, add `flutter-html-render` as a dependency in your pubspec.ya
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: render?.toWidget({})
+      body: Center(
+        child: render?.toWidget({list:[{"text":"1",{"text":"2"}}]})
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _hotReload,
+        child: Icon(Icons.refresh),
+      ),
     );
   }
 
 ```
+
+
+## TAGS
+
+`tips:Style Tag will be added soon!`
+
+### Column
+
+```
+  Column(verticalDirection="down")
+    Tag
+    Tag
+    ...
+```
+
+### Row
+
+```
+  Row
+    Tag
+    Tag
+    ...
+```
+
+### ListView
+
+```
+
+  ListView(padding=[top,right,bottom,left])
+    each row in list
+      ...
+```
+
+```
+  ListView(padding=[top,right,bottom,left])
+    Tag
+    Tag
+    ...
+```
+
