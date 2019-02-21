@@ -91,13 +91,14 @@ class HtmlRender {
 
     if (values != null && values is List) {
       values.forEach((dynamic value) {
-        if (node.block != null && node.block.nodes.length > 0 && value is Map) {
+        if (node.block != null && node.block.nodes.length > 0 ) {
           for (var i = 0; i < node.block.nodes.length; i++) {
             var n = node.block.nodes[i];
             if (n.type == "Tag") {
-              value["__key"] = node.val + ".";
+              value = value is Map?value:{"value":value};
+              value["__key"] = node.val;
               value["__index"] = i.toString();
-              var res = _visitTag(n, value);
+              var res = _visitTag(n,value);
               if (n != null) {
                 widget.add(res);
               }

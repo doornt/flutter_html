@@ -11,7 +11,7 @@ void main() {
 
     Map<String,dynamic> params = {};
 
-    params["list"] = [{"text":"fsadfasdf"},{"text":"111"}];
+    params["list"] = ["1","2","3","4"];
     
 
     html.toWidget(params);

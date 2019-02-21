@@ -45,11 +45,19 @@ class Utils {
     params = params ?? {};
 
     attrs.forEach((AttrModel attr) {
-      if (params["__key"] is String && attr.val.startsWith(params["__key"])) {
-        String codeVal = attr.val.replaceFirst(params["__key"], "");
-        if (params[codeVal] != null) {
-          map[attr.name] = AttrProperty(true, params[codeVal]);
+
+      if(params["__key"] is String){
+        String key = params["__key"];
+        if(key == attr.val && params["value"] != null){
+          map[attr.name] =AttrProperty(true, params["value"]);
           return;
+        }
+        if(attr.val.startsWith(params["__key"] + ".")){
+          String codeVal = attr.val.replaceFirst(params["__key"] + ".", "");
+          if (params[codeVal] != null) {
+            map[attr.name] = AttrProperty(true, params[codeVal]);
+            return;
+          }
         }
       }
 
