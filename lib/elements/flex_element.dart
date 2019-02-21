@@ -4,18 +4,20 @@ import 'utils.dart';
 
 class FlexElement {
   static VerticalDirection _checkVerticalDirection(AttrProperty prop) {
-    if (prop.isCode) {
-      return prop.value;
-    }
-    switch (prop.value) {
-      case "dow":
-        {
-          return VerticalDirection.down;
-        }
-      case "up":
-        {
-          return VerticalDirection.up;
-        }
+    if (prop != null) {
+      if (prop.isCode) {
+        return prop.value;
+      }
+      switch (prop.value) {
+        case "dow":
+          {
+            return VerticalDirection.down;
+          }
+        case "up":
+          {
+            return VerticalDirection.up;
+          }
+      }
     }
     return VerticalDirection.down;
   }

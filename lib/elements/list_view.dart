@@ -19,6 +19,8 @@ class ListElement {
             bottom: toDouble(obj[2]),
             left: toDouble(obj[3]));
       }
+    }else{
+      padding =EdgeInsets.all(0);
     }
 
     return ListView(
