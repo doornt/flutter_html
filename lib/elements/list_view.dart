@@ -19,12 +19,12 @@ class ListElement {
             bottom: toDouble(obj[2]),
             left: toDouble(obj[3]));
       }
-    }    
+    }
 
     return ListView(
       children: list,
       itemExtent: attrMap["itemExtent"] as double,
-      padding: padding??EdgeInsets.all(0),
+      padding: padding ?? EdgeInsets.all(0),
     );
   }
 }

@@ -2,32 +2,16 @@ import 'package:flutter/material.dart';
 import '../ast_model.dart';
 import 'utils.dart';
 
-class FlexElement {
-  static VerticalDirection _checkVerticalDirection(AttrProperty prop) {
-    if (prop != null) {
-      if (prop.isCode) {
-        return prop.value;
-      }
-      switch (prop.value) {
-        case "dow":
-          {
-            return VerticalDirection.down;
-          }
-        case "up":
-          {
-            return VerticalDirection.up;
-          }
-      }
-    }
-    return VerticalDirection.down;
-  }
+const Map VerMap = {"down": VerticalDirection.down, "up": VerticalDirection.up};
 
+class FlexElement {
   static buildColumn(
       List<Widget> list, List<AttrModel> attrs, Map<String, dynamic> params) {
     var attrMap = Utils.attrArrayToMap(attrs, params);
     var col = new Column(
       children: list,
-      verticalDirection: _checkVerticalDirection(attrMap["verticalDirection"]),
+      verticalDirection:
+          VerMap[attrMap["verticalDirection"]?.value] ?? VerticalDirection.down,
     );
 
     return col;
@@ -36,7 +20,23 @@ class FlexElement {
 
   static buildRow(
       List<Widget> list, List<AttrModel> attrs, Map<String, dynamic> params) {
-    var col = new Row(children: list);
+    var attrMap = Utils.attrArrayToMap(attrs, params);
+    var col = new Row(
+      children: list,
+      verticalDirection:
+          VerMap[attrMap["verticalDirection"]?.value] ?? VerticalDirection.down,
+    );
     return col;
+  }
+
+  static buildContainer(
+      List<Widget> list, List<AttrModel> attrs, Map<String, dynamic> params) {
+    var attrMap = Utils.attrArrayToMap(attrs, params);
+    var height = attrMap["height"]?.value;
+    var width = attrMap["width"]?.value;
+    return new Container(
+        height: height,
+        width: width,
+        child: list.length > 0 ? list[0] : Container());
   }
 }

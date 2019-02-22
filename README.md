@@ -92,10 +92,17 @@ To use this plugin, add `flutter-html-render` as a dependency in your pubspec.ya
 ### Row
 
 ```
-  Row
+  Row(verticalDirection="down")
     Tag
     Tag
     ...
+```
+
+### Container
+
+```
+  Container(width=160 height=100)
+    Tag ## only one child is allowed
 ```
 
 ### ListView

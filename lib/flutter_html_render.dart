@@ -51,6 +51,9 @@ class HtmlRender {
       case "Row":
         _widget = FlexElement.buildRow(list, node.attrs, params);
         break;
+      case "Container":
+        _widget = FlexElement.buildContainer(list, node.attrs, params);
+        break;
       case "Text":
         _widget = TextElement.buildText(list, node.attrs, params);
         break;
@@ -91,14 +94,14 @@ class HtmlRender {
 
     if (values != null && values is List) {
       values.forEach((dynamic value) {
-        if (node.block != null && node.block.nodes.length > 0 ) {
+        if (node.block != null && node.block.nodes.length > 0) {
           for (var i = 0; i < node.block.nodes.length; i++) {
             var n = node.block.nodes[i];
             if (n.type == "Tag") {
-              value = value is Map?value:{"value":value};
+              value = value is Map ? value : {"value": value};
               value["__key"] = node.val;
               value["__index"] = i.toString();
-              var res = _visitTag(n,value);
+              var res = _visitTag(n, value);
               if (n != null) {
                 widget.add(res);
               }
