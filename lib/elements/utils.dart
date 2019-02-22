@@ -68,11 +68,17 @@ class Utils {
       }
 
       if (attr.val.length > 1 &&
-          attr.val[0] == "\"" &&
-          attr.val[attr.val.length - 1] == "\"") {
+          attr.val.startsWith("\"") &&
+          attr.val.endsWith("\"")) {
         map[attr.name] =
             AttrProperty(false, attr.val.substring(1, attr.val.length - 1));
-        return;
+      }
+
+      if (attr.val.length > 1 &&
+          attr.val.startsWith("\'") &&
+          attr.val.endsWith("\'")) {
+        map[attr.name] =
+            AttrProperty(false, attr.val.substring(1, attr.val.length - 1));
       }
 
       if (isNumeric(attr.val)) {
