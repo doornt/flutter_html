@@ -1,6 +1,7 @@
 import '../ast_model.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class AttrProperty {
   bool isCode = false;
@@ -36,6 +37,12 @@ bool isNumeric(String s) {
   }
   return double.tryParse(s) != null;
 }
+
+const AlignmentMap = {
+  "center": Alignment.center,
+  "centerLeft": Alignment.centerLeft,
+  "topCenter": Alignment.topCenter
+};
 
 class Utils {
   static Map<String, AttrProperty> attrArrayToMap(
@@ -84,12 +91,15 @@ class Utils {
   }
 
   // color should be #AARRGGBB;
-  static parseColor(String colorString) {
-    var colorInt = int.parse(
-        colorString.substring(1, min(9, colorString.length)),
-        radix: 16);
-    assert(colorInt is int);
-    return Color(colorInt);
+  static Color parseColor(String colorString) {
+    if (colorString != null && colorString.startsWith("#")) {
+      var colorInt = int.parse(
+          colorString.substring(1, min(9, colorString.length)),
+          radix: 16);
+      assert(colorInt is int);
+      return Color(colorInt);
+    }
+    return null;
   }
 
   static parseBoxFit(String boxFitString) {
@@ -104,5 +114,28 @@ class Utils {
     };
 
     return boxFitMap[boxFitString];
+  }
+
+  static EdgeInsetsGeometry parsePadding(AttrProperty paddingAttr) {
+    EdgeInsetsGeometry padding;
+    if (paddingAttr != null) {
+      var obj = json.decode(paddingAttr.value as String);
+      if (obj is List && obj.length == 4) {
+        padding = EdgeInsets.only(
+            top: toDouble(obj[0]),
+            right: toDouble(obj[1]),
+            bottom: toDouble(obj[2]),
+            left: toDouble(obj[3]));
+      }
+    }
+    return padding ?? EdgeInsets.all(0);
+  }
+
+  static Alignment parseAlignment(AttrProperty attr) {
+    Alignment align;
+    if (attr != null) {
+      align = AlignmentMap[attr.value];
+    }
+    return align;
   }
 }

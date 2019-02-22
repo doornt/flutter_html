@@ -101,7 +101,7 @@ To use this plugin, add `flutter-html-render` as a dependency in your pubspec.ya
 ### Container
 
 ```
-  Container(width=160 height=100)
+  Container(width=160 height=100 alignment="topCenter" margin=[top,right,bottom,left] padding=[top,right,bottom,left])
     Tag ## only one child is allowed
 ```
 

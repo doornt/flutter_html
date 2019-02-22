@@ -35,6 +35,10 @@ class FlexElement {
     var height = attrMap["height"]?.value;
     var width = attrMap["width"]?.value;
     return new Container(
+        padding: Utils.parsePadding(attrMap["padding"]),
+        margin: Utils.parsePadding(attrMap["margin"]),
+        color: Utils.parseColor(attrMap["margin"]?.value) ?? Colors.transparent,
+        alignment: Utils.parseAlignment(attrMap["alignment"]),
         height: height,
         width: width,
         child: list.length > 0 ? list[0] : Container());
