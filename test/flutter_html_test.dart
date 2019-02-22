@@ -11,7 +11,12 @@ void main() {
 
     Map<String,dynamic> params = {};
 
-    params["list"] = ["1","2","3","4"];
+    void onTap() {
+      
+    }
+    params["list"] = ["abcd", "efg"];
+    params["onTap"] = onTap;
+
     
 
     html.toWidget(params);

@@ -15,10 +15,6 @@ class HtmlRender {
 
   Widget _root;
 
-  // Map<String ,dynamic> _params;
-
-  // Queue<NodeModel> _queue = new Queue();
-
   HtmlRender(String jsonStr) {
     Map nodeMap = jsonDecode(jsonStr);
     this._block = BlockModel.fromJson(nodeMap);
@@ -55,7 +51,7 @@ class HtmlRender {
         _widget = FlexElement.buildContainer(list, node.attrs, params);
         break;
       case "Text":
-        _widget = TextElement.buildText(list, node.attrs, params);
+        _widget = TextElement.build(list, node.attrs, params);
         break;
       case "ListView":
         _widget = ListElement.build(list, node.attrs, params);
@@ -68,15 +64,6 @@ class HtmlRender {
         break;
       case "Image_asset":
         _widget = ImageElement.buildImageAsset(list, node.attrs, params);
-        break;
-      case "Container":
-        if (list.length > 0) {
-          _widget = Container(
-            child: list[0],
-          );
-        } else {
-          _widget = Container();
-        }
         break;
     }
 
@@ -141,8 +128,6 @@ class HtmlRender {
     }
 
     NodeModel node = this._block.nodes[0];
-
-    // this._params = params;
 
     return this._parseWidget(node, params);
   }

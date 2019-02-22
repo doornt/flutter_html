@@ -5,7 +5,7 @@ import 'utils.dart';
 
 class TextElement {
   // Text
-  static buildText(
+  static build(
       List<Widget> list, List<AttrModel> attrs, Map<String, dynamic> params) {
     var attrMap = Utils.attrArrayToMap(attrs, params);
 
