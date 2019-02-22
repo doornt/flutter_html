@@ -74,13 +74,6 @@ class Utils {
             AttrProperty(false, attr.val.substring(1, attr.val.length - 1));
       }
 
-      if (attr.val.length > 1 &&
-          attr.val.startsWith("\'") &&
-          attr.val.endsWith("\'")) {
-        map[attr.name] =
-            AttrProperty(false, attr.val.substring(1, attr.val.length - 1));
-      }
-
       if (isNumeric(attr.val)) {
         map[attr.name] = AttrProperty(true, double.parse(attr.val));
         return;
