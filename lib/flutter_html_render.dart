@@ -89,7 +89,7 @@ class HtmlRender {
             if (n.type == "Tag") {
               value = value is Map ? value : {"value": value};
               value["__key"] = node.val;
-              value["__index"] = i.toString();
+              value["__index"] = i;
               var res = _visitTag(n, value);
               if (n != null) {
                 widget.add(res);

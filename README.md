@@ -2,6 +2,8 @@
 
 A Flutter package for rendering html pug template file as Flutter widgets.
 
+Welcome to join us to improve this project! 
+
 ## Getting Started
 
 To use this plugin, add `flutter_html_render` as a dependency in your pubspec.yaml file.
