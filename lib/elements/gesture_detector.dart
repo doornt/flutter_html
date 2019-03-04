@@ -14,7 +14,14 @@ class GestureElement {
     var onTap;
     var index = params["__index"];
     if (attrMap["onTap"] != null && attrMap["onTap"].value is Function) {
-      onTap = () => attrMap["onTap"].value(index);
+      var func = attrMap["onTap"].value;
+      if (func is RenderCallback0) {
+        onTap = () => func();
+      } else if (func is RenderCallback1) {
+        onTap = () => func(int.parse(index));
+      } else {
+        onTap = () => {};
+      }
     }
 
     return GestureDetector(child: list[0], onTap: onTap);

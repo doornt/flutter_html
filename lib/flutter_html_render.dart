@@ -10,6 +10,8 @@ import './elements/divider_element.dart';
 import './elements/gesture_detector.dart';
 import './elements/image_element.dart';
 
+export './elements/utils.dart' show RenderCallback0, RenderCallback1;
+
 class HtmlRender {
   BlockModel _block;
 

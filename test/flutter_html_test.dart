@@ -11,9 +11,10 @@ void main() {
 
     Map<String,dynamic> params = {};
 
-    void onTap() {
-      
-    }
+    RenderCallback1 onTap = (int param1){
+
+    };
+
     params["list"] = ["abcd", "efg"];
     params["onTap"] = onTap;
 

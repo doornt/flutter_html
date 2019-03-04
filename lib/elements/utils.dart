@@ -138,3 +138,7 @@ class Utils {
     return align;
   }
 }
+
+typedef void RenderCallback0();
+
+typedef void RenderCallback1(int index);
